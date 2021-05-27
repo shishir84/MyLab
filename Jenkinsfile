@@ -25,7 +25,7 @@ pipeline {
             steps {
                 nexusArtifactUploader artifacts: [[artifactId: 'VinayDevOpsLab', classifier: '', 
                 file: 'target/VinayDevOpsLab-0.0.4.war', type: 'war']], 
-                credentialsId: 'nexus-cred', groupId: 'com.vinaysdevopslab', nexusUrl: '172.20.10.13', nexusVersion: 'nexus3', protocol: 'http', repository: 'SnapShot', version: '0.0.4'
+                credentialsId: 'nexus-cred', groupId: 'com.vinaysdevopslab', nexusUrl: 'http://15.206.73.207;8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'SnapShot', version: '0.0.4'
             }
         }
         //stage 4
