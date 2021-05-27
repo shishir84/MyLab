@@ -5,6 +5,13 @@ pipeline {
         maven 'maven'
     }
 
+    environment {
+        groupId = readMavenPom().getGroupId()
+        artifactId = readMavenPom().getArtifactId
+        version = readMavenPom().getVersion()
+        name = readMavenPom().getName
+    }
+
     stages {
         //stage 1
         stage ('Build'){
@@ -24,9 +31,17 @@ pipeline {
         stage ('Publish') {
             steps {
                 nexusArtifactUploader artifacts: 
-                [[artifactId: 'VinayDevOpsLab', classifier: '', file: 'target/VinayDevOpsLab-0.0.4-SNAPSHOT.war', type: 'war']], 
-                credentialsId: 'nexus-cred', groupId: 'com.vinaysdevopslab', nexusUrl: '172.20.10.13:8081', nexusVersion: 'nexus3', 
-                protocol: 'http', repository: 'VinaysDevOpsLab-SNAPSHOT', version: '0.0.4-SNAPSHOT'
+                [[artifactId: '${artifactId}', 
+                classifier: '', 
+                file: 'target/VinayDevOpsLab-0.0.4-SNAPSHOT.war', 
+                type: 'war']], 
+                credentialsId: 'nexus-cred', 
+                groupId: '${groupId}', 
+                nexusUrl: '172.20.10.13:8081', 
+                nexusVersion: 'nexus3', 
+                protocol: 'http', 
+                repository: 'VinaysDevOpsLab-SNAPSHOT', 
+                version: '${version}'
             }
         }
         //stage 4
