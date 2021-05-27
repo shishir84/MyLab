@@ -30,18 +30,23 @@ pipeline {
         //stage 3
         stage ('Publish') {
             steps {
-                nexusArtifactUploader artifacts: 
-                [[artifactId: "${ArtifactId}", 
-                classifier: '', 
-                file: 'target/VinayDevOpsLab-0.0.4-SNAPSHOT.war', 
-                type: 'war']], 
-                credentialsId: 'nexus-cred', 
-                groupId: "${GroupId}", 
-                nexusUrl: '172.20.10.13:8081', 
-                nexusVersion: 'nexus3', 
-                protocol: 'http', 
-                repository: 'VinaysDevOpsLab-SNAPSHOT', 
-                version: "${Version}"
+                script {
+                    
+                    def Nex = Version.endsWith("SNAPSHOT") ? "VinaysDevOpsLab-SNAPSHOT" : "VinaysDevOpsLab-RELEASE"
+                    
+                    nexusArtifactUploader artifacts: 
+                    [[artifactId: "${ArtifactId}", 
+                    classifier: '', 
+                    file: "target/${ArtifactId}-${Version}.war", 
+                    type: 'war']], 
+                    credentialsId: 'nexus-cred', 
+                    groupId: "${GroupId}", 
+                    nexusUrl: '172.20.10.13:8081', 
+                    nexusVersion: 'nexus3', 
+                    protocol: 'http', 
+                    repository: "${Nex}", 
+                    version: "${Version}"
+                }               
             }
         }
         //stage 4
