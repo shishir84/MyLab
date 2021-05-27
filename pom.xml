@@ -18,4 +18,17 @@
   <build>
     <finalName>${project.artifactId}-${project.version}</finalName>
   </build>
+  <distributionManagement>
+    <repository>
+      <uniqueVersion>false</uniqueVersion>
+      <id>VinaysDevOpsLab-RELEASE</id>
+      <name>VinaysDevOpsLab-RELEASE</name>
+      <url>http://15.206.73.207:8081/repository/VinaysDevOpsLab-RELEASE/</url>
+    </repository>
+    <snapshotRepository>
+      <id>VinaysDevOpsLab-SNAPSHOT</id>
+      <name>VinaysDevOpsLab-SNAPSHOT</name>
+      <url>http://15.206.73.207:8081/repository/VinaysDevOpsLab-SNAPSHOT/</url>
+    </snapshotRepository>
+  </distributionManagement>
 </project>
