@@ -29,10 +29,12 @@ pipeline {
 
         //stage 3
         stage ('Static Code Analysis using Sonar') {
-            withSonarQubeEnv("SonarQube") { // You can override the credential to be used
-                sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
-            }
+            steps{
+                 withSonarQubeEnv("SonarQube") { // You can override the credential to be used
+                    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.7.0.1746:sonar'
+                 }
 
+            }
         }
         // //stage 4
         // stage ('Publish') {
