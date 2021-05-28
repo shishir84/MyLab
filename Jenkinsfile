@@ -52,32 +52,7 @@ pipeline {
         //stage 4
         stage('Deploy') {
             steps {
-                sshPublisher
-                    (publishers: 
-                        [   
-                            sshPublisherDesc(
-                                configName: 'Ansible-Controller', 
-                                transfers: 
-                                    [
-                                        sshTransfer(
-                                            cleanRemote: false, 
-                                            excludes: '', 
-                                            execCommand: 'ansible-playbook /home/ansibleadmin/playbook/downloadanddeploy.yaml -i /home/ansibleadmin/playbook/hosts', 
-                                            execTimeout: 120000, 
-                                            flatten: false, 
-                                            makeEmptyDirs: false, 
-                                            noDefaultExcludes: false, 
-                                            patternSeparator: '[, ]+', 
-                                            remoteDirectory: '', 
-                                            remoteDirectorySDF: false, 
-                                            removePrefix: '', 
-                                            sourceFiles: '')
-                                    ], 
-                                usePromotionTimestamp: false, 
-                                useWorkspaceInPromotion: false, 
-                                verbose: false)
-                        ]
-                    )
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'Ansible-Controller', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook /home/ansibleadmin/playbook/downloadanddeploy.yaml -i /home/ansibleadmin/playbook/hosts', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
