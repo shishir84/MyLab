@@ -50,9 +50,16 @@ pipeline {
             }
         }
         //stage 4
-        stage('Deploy') {
+        stage('Deploy to Tomcat') {
             steps {
                 sshPublisher(publishers: [sshPublisherDesc(configName: 'Ansible-Controller', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook /home/ansibleadmin/playbook/downloadanddeploy.yaml -i /home/ansibleadmin/playbook/hosts', execTimeout: 1200000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
+            }
+        }
+
+         //stage 5
+        stage('Deploy to Docker') {
+            steps {
+                sshPublisher(publishers: [sshPublisherDesc(configName: 'Ansible-Controller', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'ansible-playbook /home/ansibleadmin/playbook/downloadanddeploy_docker.yaml -i /home/ansibleadmin/playbook/hosts', execTimeout: 1200000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
             }
         }
     }
